@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,400;0,500;0,600;0,700;0,800;1,700');
+
+/* Header.css */
+.header-container {
+    font-family: 'Poppins', sans-serif; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px;
+    background-color: #f0f0f0; /* Puedes ajustar el color de fondo según tus preferencias */
+    z-index: 1000; /* Asegura que el header esté en la parte superior de la pila de capas */
+}
+
+@media (max-width: 760px) {
+    .header-container{
+        flex-direction: column;
+    }
+    
+}
+.header-container
+
+.header-container.logged-in {
+    background-color: #f0f0f0; /* Fondo rojo cuando el usuario está autenticado */
+}
+
+
+
+.logo {
+    width: 100%;
+    max-width: 200px; /* Ajusta el ancho del logo según tus preferencias */
+    height: auto;
+}
+
+.welcome-container {
+    text-align: right;
+}
+
+.welcome-container p{
+    font-weight: 400;
+  font-style: normal;
+  font-size: 20px;
+}
+.welcome-container span{
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 24px;
+}
+
+button {
+    cursor: pointer;
+}
