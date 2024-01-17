@@ -1,19 +1,34 @@
-// CardPost.js
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FcLike, FcComments } from 'react-icons/fc';
 import { BiPurchaseTagAlt } from 'react-icons/bi';
-import { fetchUserById } from '../../../../services/ApiService';
-
-import UserProfileModal from '../../../Profile/UserProfileModal'; // Importa el componente modal
+import { fetchUserById, fetchCommentById } from '../../../../services/ApiService';
+import UserProfileModal from '../../../Profile/UserProfileModal';
+import CommentsModal from './CommentsModal'; // Importa el nuevo componente modal
 
 import './CardPost.css';
 
 const CardPost = ({ post }) => {
-  const { title, text, likes, owner, image, tags } = post;
+  const { title, text, likes, owner, image, tags, id } = post;
   const { firstName, lastName, picture, id: userId } = owner;
 
   const [showModal, setShowModal] = useState(false);
   const [userData, setUserData] = useState(null);
+  const [showCommentsModal, setShowCommentsModal] = useState(false);
+  const [comments, setComments] = useState({ total: 0, data: [] });
+
+  useEffect(() => {
+    // Lógica para cargar los comentarios al montar el componente
+    const loadComments = async () => {
+      try {
+        const postComments = await fetchCommentById(id);
+        setComments(postComments);
+      } catch (error) {
+        console.error('Error al obtener los comentarios del post:', error);
+      }
+    };
+
+    loadComments();
+  }, [id]);
 
   const handleVerPerfilClick = async () => {
     try {
@@ -25,10 +40,26 @@ const CardPost = ({ post }) => {
     }
   };
 
+  const handleVerComentariosClick = async () => {
+    try {
+      const response = await fetchCommentById(id);
+      const totalComments = response.total; // Accede a la propiedad 'total'
+      setShowCommentsModal(true);
+      setComments(totalComments); // Puedes asignar total directamente si eso tiene sentido en tu caso
+    } catch (error) {
+      console.error('Error al obtener los comentarios del post:', error);
+    }
+  };
+  
+  const handleCloseCommentsModal = () => {
+    setShowCommentsModal(false);
+  };
+
   const handleCloseModal = () => {
     setShowModal(false);
     setUserData(null);
   };
+
   return (
     <div className="card">
       <div>
@@ -37,31 +68,29 @@ const CardPost = ({ post }) => {
       <div className="card-text">
         <img className="portada" src={image} alt="Descripción de la imagen" />
         <div className="title-total">
-          <div className="title">
-            Autor: <span>{`${firstName} ${lastName}`}</span>
-          </div>
-          <div className="btn-perfil">
-        {/* Maneja el clic en el enlace "Ver perfil" */}
-        <a href="#" onClick={handleVerPerfilClick}>
-          Ver perfil
-        </a>
-      </div>
-  
-          <div className="desc">{text}</div>
-
-          {/* Sesión de comentarios y like */}
-          <div className="like-container">
-            <div className="likes">
+        <div className="like-container likes">
               <div>
                 <FcLike />
               </div>
               <div> {likes} </div>
             </div>
+          <div className="title">
+            Autor: <span>{`${firstName} ${lastName}`}</span>
+          </div>
+          <div className="btn-perfil">
+            <button type="button" onClick={handleVerPerfilClick}>
+              Ver perfil
+            </button>
+          </div>
+  
+          <div className="desc">{text}</div>
+
+          <div className="like-container">
+         
             <div className="likes">
-              <div>
-                <FcComments />
-              </div>
-              <div> {likes} </div>
+               <button className='btn-comment' type="button" onClick={() => setShowCommentsModal(true)}>
+               <FcComments /> Comentarios ({comments.total})
+          </button>
             </div>
           </div>
           <hr />
@@ -79,8 +108,13 @@ const CardPost = ({ post }) => {
           </div>
         </div>
       </div>
-     {/* Muestra el modal si showModal es true */}
-     {showModal && <UserProfileModal userData={userData} onClose={handleCloseModal} />}
+
+      {showModal && <UserProfileModal userData={userData} onClose={handleCloseModal} />}
+      
+      {/* Muestra el nuevo modal de comentarios si showCommentsModal es true */}
+      {showCommentsModal && (
+        <CommentsModal comments={comments} onClose={handleCloseCommentsModal} />
+      )}
     </div>
   );
 };

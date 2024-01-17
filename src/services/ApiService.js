@@ -13,7 +13,7 @@ const ApiService = axios.create({
 });
 
 // Función para obtener posts con paginación
-export const fetchPosts = async (pageNumber = 1, pageSize = 20) => {
+export const fetchPosts = async (pageNumber = 1, pageSize = 21) => {
     try {
         const response = await ApiService.get('/post', {
             params: {
@@ -47,5 +47,29 @@ export const fetchUserById = async (userId) => {
         throw error;
     }
 };
+
+// Comentarios por post
+
+// Configuración del axios para obtener comentarios por ID
+const ApiServiceComment = axios.create({
+    baseURL: BASE_URL,
+    headers: {
+        'Content-Type': 'application/json',
+        'app-id': '65a6d5fbcefceb0d5726f7e6',
+    },
+});
+
+// Función para obtener comentarios por ID
+export const fetchCommentById = async (id) => {
+    try {
+        const response = await ApiServiceComment.get(`/post/${id}/comment`);
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching user by ID:', error);
+        throw error;
+    }
+};
+
+
 
 export default ApiService;

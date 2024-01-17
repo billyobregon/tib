@@ -30,7 +30,7 @@
 }
 .card .desc {
   padding: 0.5rem 1rem;
-  font-size: 12px;
+  font-size: 1rem;
   margin: 6% 0;
   color: #213547;
 
@@ -103,12 +103,13 @@ button {
 }
 
 .like-container {
-    width: 100%;
-    display: flex;
-    justify-content: space-evenly;
-    flex-wrap: nowrap;
-    align-items: center;
-    color: #8bc34a;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  flex-wrap: nowrap;
+  align-items: center;
+  color: #8bc34a;
 }
 .like-container path{
     fill: #8bc34a;
@@ -123,7 +124,6 @@ button {
 
 .btn-perfil {
     text-align: end;
-    padding-right: 1rem;
     color: #8bc34a;
     text-decoration: underline #8bc34a;
     font-size: 16px;
@@ -136,3 +136,18 @@ button {
 .btn-perfil a:hover{
     color: black;
 }
+
+button.btn-comment{
+  background: white;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+.btn-perfil button{
+  background: white;
+  border: 0;
+  text-decoration: underline #8bc34a;
+
+}
+
