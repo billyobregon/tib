@@ -32,6 +32,8 @@
   padding: 0.5rem 1rem;
   font-size: 12px;
   margin: 6% 0;
+  color: #213547;
+
 }
 .card .actions {
   display: grid;
@@ -106,6 +108,7 @@ button {
     justify-content: space-evenly;
     flex-wrap: nowrap;
     align-items: center;
+    color: #8bc34a;
 }
 .like-container path{
     fill: #8bc34a;

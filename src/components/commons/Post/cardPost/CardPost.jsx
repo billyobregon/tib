@@ -1,47 +1,55 @@
 // CardPost.js
-import { FcLike, FcComments } from "react-icons/fc";
-import { BiPurchaseTagAlt } from "react-icons/bi";
+import { useState } from 'react';
+import { FcLike, FcComments } from 'react-icons/fc';
+import { BiPurchaseTagAlt } from 'react-icons/bi';
+import { fetchUserById } from '../../../../services/ApiService';
 
-import "./CardPost.css";
+import UserProfileModal from '../../../Profile/UserProfileModal'; // Importa el componente modal
+
+import './CardPost.css';
 
 const CardPost = ({ post }) => {
   const { title, text, likes, owner, image, tags } = post;
-  const { firstName, lastName, picture, id } = owner;
+  const { firstName, lastName, picture, id: userId } = owner;
 
+  const [showModal, setShowModal] = useState(false);
+  const [userData, setUserData] = useState(null);
+
+  const handleVerPerfilClick = async () => {
+    try {
+      const user = await fetchUserById(userId);
+      setUserData(user);
+      setShowModal(true);
+    } catch (error) {
+      console.error('Error al obtener el perfil del usuario:', error);
+    }
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setUserData(null);
+  };
   return (
-    // <div className="card">
-    //   <img src={picture} alt={`${firstName} ${lastName}`} />
-    //   <p>Nombre del usuario que hizo el post: {`${firstName} ${lastName}`}</p>
-    //   {/* Imagen y texto del post */}
-    //   <img
-    //     src={image}
-    //     style={{ maxWidth: "100px" }}
-    //     alt="Descripción de la imagen"
-    //   />
-    //   <p>{text}</p>
-    //   <p>Likes: {likes}</p>
-    //   <p>Tags: {tags && tags.map((tag) => <span key={tag}>{tag} </span>)}</p>
-    //   <h3>{title}</h3>
-    //   <hr />
-
     <div className="card">
       <div>
-        <img className="img-avatar" src={picture} />
+        <img className="img-avatar" src={picture} alt={`${firstName} ${lastName}`} />
       </div>
       <div className="card-text">
-        <img className="portada" src={image} />
+        <img className="portada" src={image} alt="Descripción de la imagen" />
         <div className="title-total">
           <div className="title">
-            Autor: <span>{`${firstName} ${lastName}`}</span> 
+            Autor: <span>{`${firstName} ${lastName}`}</span>
           </div>
-          <div className="btn-perfil ">
-          <a href={`https://dummyapi.io/data/v1/user/60d0fe4f5311236168a109ca${id}`}>Ver perfil</a>
-          </div>
-
+          <div className="btn-perfil">
+        {/* Maneja el clic en el enlace "Ver perfil" */}
+        <a href="#" onClick={handleVerPerfilClick}>
+          Ver perfil
+        </a>
+      </div>
+  
           <div className="desc">{text}</div>
-     
 
-{/* Sesión de comentarios y like */}
+          {/* Sesión de comentarios y like */}
           <div className="like-container">
             <div className="likes">
               <div>
@@ -57,13 +65,22 @@ const CardPost = ({ post }) => {
             </div>
           </div>
           <hr />
-          <div className="like-container"><p>
-          <BiPurchaseTagAlt /> {tags && tags.map((tag) => <span className="tag-button" key={tag}> {tag} </span>)}
-
-          </p>
+          <div className="like-container">
+            <p>
+              <BiPurchaseTagAlt />{' '}
+              {tags &&
+                tags.map((tag) => (
+                  <span className="tag-button" key={tag}>
+                    {' '}
+                    {tag}{' '}
+                  </span>
+                ))}
+            </p>
           </div>
         </div>
       </div>
+     {/* Muestra el modal si showModal es true */}
+     {showModal && <UserProfileModal userData={userData} onClose={handleCloseModal} />}
     </div>
   );
 };

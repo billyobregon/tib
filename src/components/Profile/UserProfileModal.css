@@ -1,0 +1,61 @@
+/* UserProfileModal.css */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000; /* Ajusta este valor según sea necesario */
+  }
+  
+  .modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 400px;
+    width: 100%;
+    z-index: 1001; /* Ajusta este valor según sea necesario, debe ser mayor que el z-index de .modal-overlay */
+  }
+
+  @media (max-width:764px) {
+    .modal-content{
+        width: 80%;
+    }
+    
+  }
+
+.title-info p {
+    color: #8bc34a;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 3px;
+}
+
+.title-info p span{
+    color: #213547;
+    font-size: 1rem;
+    font-weight: 100;
+    text-transform: capitalize;
+}
+@media (max-width: 764px) {
+  .title-info p span{
+    font-size: 0.8rem;
+  }
+  
+}
+.text-info {
+    text-align: justify;
+    padding-left: 3%;
+}
+.icon path{
+  fill: #8bc34a;
+}
+
+.card p svg{
+  width: 26px;
+  height: auto;
+}
