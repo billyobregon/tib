@@ -46,7 +46,7 @@ Bienvenido/a al proyecto de prueba técnica de Social Network. Este proyecto uti
 
 ## Repositorio Desplegado
 
-Puedes acceder al repositorio desplegado de este proyecto en [https://billyobregon.github.io/tib/](/https://billyobregon.github.io/tib/)
+Puedes acceder al repositorio desplegado de este proyecto en [Demo del Proyecto](https://billyobregon.github.io/tib/)
 
 ## Tecnologías Utilizadas
 
