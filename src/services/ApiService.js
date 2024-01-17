@@ -1,75 +1,43 @@
-// ApiService.js
 import axios from 'axios';
 
 const BASE_URL = 'https://dummyapi.io/data/v1';
 
-// Configuración del axios para obtener posts
-const ApiService = axios.create({
+// Configuración del axios
+const apiConfig = {
     baseURL: BASE_URL,
     headers: {
         'Content-Type': 'application/json',
         'app-id': '65a6d5fbcefceb0d5726f7e6',
     },
-});
+};
 
-// Función para obtener posts con paginación
-export const fetchPosts = async (pageNumber = 1, pageSize = 21) => {
+// Crear una única instancia de axios para todos los servicios
+const apiService = axios.create(apiConfig);
+
+// Función para realizar peticiones GET
+const getData = async (endpoint, params = {}) => {
     try {
-        const response = await ApiService.get('/post', {
-            params: {
-                limit: pageSize,
-                skip: (pageNumber - 1) * pageSize, // Calcula el número de elementos a saltar
-            },
-        });
+        const response = await apiService.get(endpoint, { params });
         return response.data;
     } catch (error) {
-        console.error('Error fetching posts:', error);
+        console.error(`Error fetching data from ${endpoint}:`, error);
         throw error;
     }
 };
 
-// Configuración del axios para obtener usuarios por ID
-const ApiServiceUser = axios.create({
-    baseURL: BASE_URL,
-    headers: {
-        'Content-Type': 'application/json',
-        'app-id': '65a6d5fbcefceb0d5726f7e6',
-    },
-});
+// Función para obtener los posts
+export const fetchPosts = async () => {
+    return getData('/post', { limit: 21 });
+};
 
 // Función para obtener usuarios por ID
 export const fetchUserById = async (userId) => {
-    try {
-        const response = await ApiServiceUser.get(`/user/${userId}`);
-        return response.data;
-    } catch (error) {
-        console.error('Error fetching user by ID:', error);
-        throw error;
-    }
+    return getData(`/user/${userId}`);
 };
-
-// Comentarios por post
-
-// Configuración del axios para obtener comentarios por ID
-const ApiServiceComment = axios.create({
-    baseURL: BASE_URL,
-    headers: {
-        'Content-Type': 'application/json',
-        'app-id': '65a6d5fbcefceb0d5726f7e6',
-    },
-});
 
 // Función para obtener comentarios por ID
-export const fetchCommentById = async (id) => {
-    try {
-        const response = await ApiServiceComment.get(`/post/${id}/comment`);
-        return response.data;
-    } catch (error) {
-        console.error('Error fetching user by ID:', error);
-        throw error;
-    }
+export const fetchCommentById = async (postId) => {
+    return getData(`/post/${postId}/comment`);
 };
 
-
-
-export default ApiService;
+export default apiService;

@@ -1,8 +1,7 @@
-// PostList.js
 import { useState, useEffect } from 'react';
 import { fetchPosts } from '../../../services/ApiService';
 import CardPost from './cardPost/CardPost';
-import TagFilter from '../Filters/Filters'; // Importa el nuevo componente de filtro
+import TagFilter from '../Filters/Filters';
 import './PostList.css';
 
 const PostList = () => {
@@ -15,8 +14,6 @@ const PostList = () => {
     const fetchData = async () => {
       try {
         const postsData = await fetchPosts();
-        console.log('API Response:', postsData);
-
         setPosts(postsData.data || []);
         setFilteredPosts(postsData.data || []);
         setAvailableTags(getAvailableTags(postsData.data || []));
@@ -29,29 +26,26 @@ const PostList = () => {
   }, []);
 
   useEffect(() => {
-    // Filtra los posts según la etiqueta seleccionada
-    if (selectedTag) {
-      const filtered = posts.filter((post) =>
-        (post.tags || []).includes(selectedTag)
-      );
-      setFilteredPosts(filtered);
-    } else {
-      // Si no hay etiqueta seleccionada, muestra todos los posts
-      setFilteredPosts(posts);
-    }
+    filterPostsByTag();
   }, [posts, selectedTag]);
 
   const handleTagFilterChange = (tag) => {
     setSelectedTag(tag);
   };
 
+  const filterPostsByTag = () => {
+    if (selectedTag) {
+      const filtered = posts.filter((post) => (post.tags || []).includes(selectedTag));
+      setFilteredPosts(filtered);
+    } else {
+      setFilteredPosts(posts);
+    }
+  };
+
   return (
     <div className="post-list-container">
       <h2>Listado de Posts</h2>
-
-      {/* Agrega el componente de filtro */}
       <TagFilter availableTags={availableTags} onFilterChange={handleTagFilterChange} />
-
       <div className="card-container">
         {filteredPosts.map((post) => (
           <CardPost key={post.id} post={post} />
@@ -62,9 +56,7 @@ const PostList = () => {
 };
 
 const getAvailableTags = (posts) => {
-  const allTags = posts.reduce((tags, post) => {
-    return tags.concat(post.tags || []);
-  }, []);
+  const allTags = posts.reduce((tags, post) => tags.concat(post.tags || []), []);
   return [...new Set(allTags)].sort();
 };
 

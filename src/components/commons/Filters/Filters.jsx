@@ -1,5 +1,5 @@
-// TagFilter.jsx
 import { useState } from 'react';
+import './TagFilter.css'
 
 const Filter = ({ availableTags, onFilterChange }) => {
   const [selectedTag, setSelectedTag] = useState('');
