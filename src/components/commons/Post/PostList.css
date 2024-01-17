@@ -21,7 +21,7 @@
 }
 
 .card {
-    width: calc(28% - 20px); /* Ajuste aquí */
+    width: 301px; /* Ajuste aquí */
     margin-bottom: 20px;
 }
 
