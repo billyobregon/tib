@@ -21,6 +21,7 @@
   color: green;
   font-weight: bold;
   font-size: 12px;
+  padding-bottom: 0;
 }
 
 .card .title span {
@@ -30,6 +31,7 @@
 .card .desc {
   padding: 0.5rem 1rem;
   font-size: 12px;
+  margin: 6% 0;
 }
 .card .actions {
   display: grid;
@@ -91,4 +93,43 @@ button {
   &:hover{
     color: #4CAF50  ;
   }
+}
+
+.card .like-container svg {
+    max-width: 24px;
+    height: auto;
+}
+
+.like-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+.like-container path{
+    fill: #8bc34a;
+}
+
+.tag-button{
+    background: #213547;
+    color: white;
+    padding: 2px;
+    margin: 2px;
+}
+
+.btn-perfil {
+    text-align: end;
+    padding-right: 1rem;
+    color: #8bc34a;
+    text-decoration: underline #8bc34a;
+    font-size: 16px;
+    cursor: pointer;
+}
+.btn-perfil a {
+    color: #8bc34a;
+}
+
+.btn-perfil a:hover{
+    color: black;
 }
