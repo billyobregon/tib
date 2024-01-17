@@ -40,16 +40,6 @@ const CardPost = ({ post }) => {
     }
   };
 
-  const handleVerComentariosClick = async () => {
-    try {
-      const response = await fetchCommentById(id);
-      const totalComments = response.total; // Accede a la propiedad 'total'
-      setShowCommentsModal(true);
-      setComments(totalComments); // Puedes asignar total directamente si eso tiene sentido en tu caso
-    } catch (error) {
-      console.error('Error al obtener los comentarios del post:', error);
-    }
-  };
   
   const handleCloseCommentsModal = () => {
     setShowCommentsModal(false);

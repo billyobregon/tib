@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { FcLike } from 'react-icons/fc';
+import './CommentsModal.css'
 
 const CommentsModal = ({ comments, onClose }) => {
   // Verificar si comments.data es un arreglo
@@ -25,6 +26,7 @@ const CommentsModal = ({ comments, onClose }) => {
               <span>Publicado por: {comment.owner.firstName} {comment.owner.lastName}</span>
               <span>Fecha: {new Date(comment.publishDate).toLocaleDateString()}</span>
             </div>
+            <hr />
           </div>
         ))}
       </div>
