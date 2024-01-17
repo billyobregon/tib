@@ -1,6 +1,5 @@
 // CommentsModal.jsx
 
-import React from 'react';
 import { FcLike } from 'react-icons/fc';
 import './CommentsModal.css'
 
