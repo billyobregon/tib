@@ -15,15 +15,11 @@ Bienvenido/a al proyecto de prueba técnica de Social Network. Este proyecto uti
    npm install
    ```
 
-3. **Configurar variables de entorno:**
-   - Crea un archivo `.env` en la raíz del proyecto.
-   - Agrega tu clave de API de DummyAPI como `REACT_APP_DUMMY_API_KEY=your_api_key`.
-
 4. **Iniciar la aplicación:**
    ```bash
    npm start
    ```
-   La aplicación se abrirá en tu navegador por defecto en [http://localhost:3000](http://localhost:3000).
+   La aplicación se abrirá en tu navegador por defecto en [http://localhost:5173](http://localhost:5173).
 
 ## Funcionalidades Implementadas
 
